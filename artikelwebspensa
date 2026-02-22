@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMP Negeri 1 Tabukan Utara - Portal Administrasi</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Source+Sans+3:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    .font-heading { font-family: 'Playfair Display', Georgia, serif; }
+    .font-body { font-family: 'Source Sans 3', system-ui, sans-serif; }
+    
+    .gradient-hero {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #3a7ca5 100%);
+    }
+    
+    .gradient-admin {
+      background: linear-gradient(135deg, #0f766e 0%, #115e59 50%, #134e4a 100%);
+    }
+    
+    .pattern-bg {
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
+    }
+    
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .stagger-1 { animation-delay: 0.1s; }
+    .stagger-2 { animation-delay: 0.2s; }
+    .stagger-3 { animation-delay: 0.3s; }
+    .stagger-4 { animation-delay: 0.4s; }
+    
+    .icon-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .tab-active {
+      border-bottom: 3px solid #0f766e;
+      color: #0f766e;
+    }
+
+    .tab-inactive {
+      border-bottom: 3px solid transparent;
+      color: #64748b;
+    }
+
+    .input-field {
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .btn-primary {
+      background-color: #0f766e;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #115e59;
+    }
+
+    .btn-secondary {
+      background-color: #64748b;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      background-color: #ef4444;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .toast {
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    .sidebar {
+      background-color: #0f766e;
+      color: white;
+      width: 250px;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-item {
+      padding: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar-item:hover {
+      background-color: #115e59;
+    }
+
+    .sidebar-item.active {
+      background-color: #134e4a;
+      border-left: 4px solid #10b981;
+    }
+
+    .table-striped tbody tr:nth-child(odd) {
+      background-color: #f8fafc;
+    }
+
+    .table-striped tbody tr:hover {
+      background-color: #eff6ff;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full font-body">
+  <!-- Public Website -->
+  <div id="public-website" class="h-full overflow-auto"><!-- Header/Navigation -->
+   <header style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white; padding: 1.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center;">
+     <div class="flex items-center gap-3">
+      <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">
+       📚
+      </div>
+      <div>
+       <h1 class="font-heading text-2xl font-bold" id="header-school-name">SMP Negeri 1 Tabukan Utara</h1>
+       <p style="font-size: 0.875rem; opacity: 0.9;" id="header-tagline">Pendidikan Berkualitas untuk Masa Depan</p>
+      </div>
+     </div><button id="admin-toggle-btn" style="background-color: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; transition: all 0.3s;">🔐 Admin</button>
+    </div>
+   </header><!-- Navigation Menu -->
+   <nav style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; z-index: 10;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 2rem;"><button class="nav-link active" data-section="home" style="padding: 1rem 0; border-bottom: 3px solid #1e3a5f; color: #1e3a5f; font-weight: 600; background: none; border: none; cursor: pointer; font-size: 1rem;">Beranda</button> <button class="nav-link" data-section="about" style="padding: 1rem 0; border-bottom: 3px solid transparent; color: #64748b; font-weight: 600; background: none; border: none; cursor: pointer; font-size: 1rem;">Tentang</button> <button class="nav-link" data-section="articles" style="padding: 1rem 0; border-bottom: 3px solid transparent; color: #64748b; font-weight: 600; background: none; border: none; cursor: pointer; font-size: 1rem;">Artikel</button> <button class="nav-link" data-section="journals" style="padding: 1rem 0; border-bottom: 3px solid transparent; color: #64748b; font-weight: 600; background: none; border: none; cursor: pointer; font-size: 1rem;">Jurnal</button> <button class="nav-link" data-section="staff" style="padding: 1rem 0; border-bottom: 3px solid transparent; color: #64748b; font-weight: 600; background: none; border: none; cursor: pointer; font-size: 1rem;">Pendidik</button>
+    </div>
+   </nav><!-- Content Sections -->
+   <main style="max-width: 1200px; margin: 0 auto; padding: 2rem;"><!-- Home Section -->
+    <section id="home-section" class="page-section">
+     <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white; padding: 3rem; border-radius: 1rem; margin-bottom: 2rem; text-align: center;">
+      <h2 class="font-heading text-4xl font-bold mb-4">Selamat Datang di SMP Negeri 1 Tabukan Utara</h2>
+      <p style="font-size: 1.125rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Kami berkomitmen untuk memberikan pendidikan berkualitas yang membentuk generasi pemimpin masa depan.</p>
+     </div>
+     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+      <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 4px solid #1e3a5f; transition: transform 0.3s;">
+       <div style="font-size: 2.5rem; margin-bottom: 1rem;">
+        🎓
+       </div>
+       <h3 class="font-heading text-lg font-bold" style="color: #1e3a5f; margin-bottom: 0.5rem;">Visi</h3>
+       <p id="vision-text" style="color: #64748b; line-height: 1.6;">Menjadi sekolah unggul yang menghasilkan siswa berkompeten, berakhlak mulia, dan siap menghadapi tantangan global.</p>
+      </div>
+      <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 4px solid #0f766e; transition: transform 0.3s;">
+       <div style="font-size: 2.5rem; margin-bottom: 1rem;">
+        🎯
+       </div>
+       <h3 class="font-heading text-lg font-bold" style="color: #0f766e; margin-bottom: 0.5rem;">Misi</h3>
+       <p id="mission-text" style="color: #64748b; line-height: 1.6;">Menyelenggarakan pendidikan yang inovatif, inklusif, dan berpusat pada pengembangan karakter siswa.</p>
+      </div>
+      <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 4px solid #10b981; transition: transform 0.3s;">
+       <div style="font-size: 2.5rem; margin-bottom: 1rem;">
+        🌟
+       </div>
+       <h3 class="font-heading text-lg font-bold" style="color: #10b981; margin-bottom: 0.5rem;">Komitmen</h3>
+       <p style="color: #64748b; line-height: 1.6;">Kami berkomitmen untuk terus berinovasi dan meningkatkan kualitas pendidikan demi masa depan yang lebih baik.</p>
+      </div>
+     </div><!-- Statistik -->
+     <div style="background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%); padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0;">
+      <h3 class="font-heading text-2xl font-bold mb-4" style="color: #1e3a5f; text-align: center;">Profil Sekolah</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: center;">
+       <div>
+        <div style="font-size: 2rem; font-weight: bold; color: #1e3a5f;" id="stats-students">
+         0
+        </div>
+        <p style="color: #64748b; font-size: 0.875rem;">Total Peserta Didik</p>
+       </div>
+       <div>
+        <div style="font-size: 2rem; font-weight: bold; color: #0f766e;" id="stats-staff">
+         0
+        </div>
+        <p style="color: #64748b; font-size: 0.875rem;">Pendidik &amp; Tenaga Kependidikan</p>
+       </div>
+       <div>
+        <div style="font-size: 2rem; font-weight: bold; color: #10b981;" id="stats-articles">
+         0
+        </div>
+        <p style="color: #64748b; font-size: 0.875rem;">Artikel Terbaru</p>
+       </div>
+       <div>
+        <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;" id="stats-journals">
+         0
+        </div>
+        <p style="color: #64748b; font-size: 0.875rem;">Jurnal &amp; Karya Tulis</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- About Section -->
+    <section id="about-section" class="page-section hidden">
+     <h2 class="font-heading text-3xl font-bold mb-4" style="color: #1e3a5f;">Tentang Kami</h2>
+     <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+      <p style="color: #475569; line-height: 1.8; margin-bottom: 1rem;">SMP Negeri 1 Tabukan Utara adalah sebuah institusi pendidikan yang memiliki dedikasi tinggi dalam mengembangkan potensi siswa. Dengan fasilitas modern dan tenaga pendidik yang profesional, kami menciptakan lingkungan belajar yang mendukung pertumbuhan akademik dan karakter.</p>
+      <p style="color: #475569; line-height: 1.8; margin-bottom: 1rem;">Sejak didirikan, sekolah kami terus berkembang dengan berbagai program unggulan dan kegiatan ekstrakurikuler yang bertujuan untuk mengembangkan minat dan bakat siswa.</p>
+      <h3 class="font-heading text-2xl font-bold mt-6 mb-3" style="color: #1e3a5f;">Tim Manajemen</h3>
+      <div id="management-list" style="display: grid; gap: 1rem;"></div>
+     </div>
+    </section><!-- Articles Section -->
+    <section id="articles-section" class="page-section hidden">
+     <h2 class="font-heading text-3xl font-bold mb-4" style="color: #1e3a5f;">Artikel Terbaru</h2>
+     <div id="articles-list-public" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;"></div>
+     <div id="articles-empty-msg" style="text-align: center; color: #64748b; padding: 2rem;">
+      Belum ada artikel
+     </div>
+    </section><!-- Journals Section -->
+    <section id="journals-section" class="page-section hidden">
+     <h2 class="font-heading text-3xl font-bold mb-4" style="color: #1e3a5f;">Jurnal &amp; Karya Tulis</h2>
+     <div id="journals-list-public" style="display: grid; gap: 1rem;"></div>
+     <div id="journals-empty-msg" style="text-align: center; color: #64748b; padding: 2rem;">
+      Belum ada jurnal
+     </div>
+    </section><!-- Staff Section -->
+    <section id="staff-section" class="page-section hidden">
+     <h2 class="font-heading text-3xl font-bold mb-4" style="color: #1e3a5f;">Pendidik &amp; Tenaga Kependidikan</h2>
+     <div id="staff-list-public" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;"></div>
+     <div id="staff-empty-msg" style="text-align: center; color: #64748b; padding: 2rem;">
+      Belum ada data pendidik
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer style="background-color: #1e3a5f; color: white; padding: 2rem; text-align: center; margin-top: 3rem;">
+    <p>© 2024 SMP Negeri 1 Tabukan Utara. All rights reserved.</p>
+    <p style="font-size: 0.875rem; opacity: 0.7; margin-top: 0.5rem;">Jl. Pendidikan No. 1, Tabukan Utara | Telp: 082-xxx-xxx-xxx</p>
+   </footer>
+  </div><!-- Login Modal -->
+  <div id="login-modal" class="hidden fixed inset-0 modal-backdrop flex items-center justify-center z-50">
+   <div class="bg-white rounded-2xl shadow-2xl p-8 w-96 fade-in">
+    <div class="text-center mb-8">
+     <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 gradient-admin" style="background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);">
+      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
+     </div>
+     <h2 class="font-heading text-2xl font-bold" style="color: #0f766e;">Portal Admin</h2>
+     <p style="color: #64748b; margin-top: 0.5rem;">SMP Negeri 1 Tabukan Utara</p>
+    </div>
+    <form id="login-form" class="space-y-4">
+     <div>
+      <label for="username" class="block text-sm font-medium mb-2" style="color: #1f2937;">Username</label> <input type="text" id="username" class="w-full input-field" placeholder="admin" style="background-color: #f9fafb;">
+     </div>
+     <div>
+      <label for="password" class="block text-sm font-medium mb-2" style="color: #1f2937;">Password</label> <input type="password" id="password" class="w-full input-field" placeholder="••••••••" style="background-color: #f9fafb;">
+     </div><button type="submit" class="w-full btn-primary font-semibold" style="margin-top: 1.5rem;">Masuk</button>
+    </form>
+    <div style="margin-top: 1.5rem; text-center;">
+     <p style="color: #64748b; font-size: 0.875rem;">Demo: Username: <strong>admin</strong> | Password: <strong>admin123</strong></p>
+    </div>
+   </div>
+  </div><!-- Admin Dashboard -->
+  <div id="admin-dashboard" class="hidden fixed inset-0 z-40 bg-white overflow-auto" style="display: flex; height: 100%;">
+   <!-- Sidebar Navigation -->
+   <div class="sidebar" style="width: 250px; overflow-y-auto; flex-shrink: 0;">
+    <div style="padding: 1.5rem;">
+     <div class="flex items-center gap-2 mb-8">
+      <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: #10b981;">
+       <svg class="w-6 h-6 text-white" fill="currentColor" viewbox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v4h8v-4zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+       </svg>
+      </div>
+      <h2 style="font-size: 1.125rem; font-weight: bold;">Admin Panel</h2>
+     </div>
+     <nav style="space-y: 0.5rem;">
+      <div class="sidebar-item active" data-section="dashboard">
+       <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewbox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h12a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z" />
+       </svg> Dashboard
+      </div>
+      <div class="sidebar-item" data-section="articles">
+       <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewbox="0 0 20 20"><path d="M3 4a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V4zm3 2h6v2H6V6zm0 4h6v2H6v-2zm0 4h2v2H6v-2z" />
+       </svg> Artikel
+      </div>
+      <div class="sidebar-item" data-section="journal">
+       <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewbox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+       </svg> Jurnal
+      </div>
+      <div class="sidebar-item" data-section="staff">
+       <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewbox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+       </svg> Pendidik
+      </div>
+      <div class="sidebar-item" data-section="students">
+       <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewbox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v4h8v-4zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+       </svg> Peserta Didik
+      </div>
+      <div class="sidebar-item" data-section="positions">
+       <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewbox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+       </svg> Jabatan
+      </div>
+      <div class="sidebar-item" data-section="alumni">
+       <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewbox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5.951-1.488 5.951 1.488a1 1 0 001.169-1.409l-7-14z" />
+       </svg> Alumni
+      </div>
+     </nav><button id="logout-btn" class="w-full btn-secondary mt-8" style="background-color: #ef4444;"> Keluar </button>
+    </div>
+   </div><!-- Main Content -->
+   <div style="flex: 1; overflow-y: auto;">
+    <div style="padding: 2rem;">
+     <!-- Dashboard Section -->
+     <div id="dashboard-section" class="section-content">
+      <h1 class="font-heading text-3xl font-bold mb-6" style="color: #0f766e;">Dashboard</h1>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+       <div class="bg-white rounded-lg shadow p-6">
+        <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.5rem;">
+         Total Artikel
+        </div>
+        <div class="text-3xl font-bold" style="color: #0f766e;" id="total-articles">
+         0
+        </div>
+       </div>
+       <div class="bg-white rounded-lg shadow p-6">
+        <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.5rem;">
+         Total Jurnal
+        </div>
+        <div class="text-3xl font-bold" style="color: #0f766e;" id="total-journals">
+         0
+        </div>
+       </div>
+       <div class="bg-white rounded-lg shadow p-6">
+        <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.5rem;">
+         Total Pendidik
+        </div>
+        <div class="text-3xl font-bold" style="color: #0f766e;" id="total-staff">
+         0
+        </div>
+       </div>
+       <div class="bg-white rounded-lg shadow p-6">
+        <div style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.5rem;">
+         Total Peserta Didik
+        </div>
+        <div class="text-3xl font-bold" style="color: #0f766e;" id="total-students">
+         0
+        </div>
+       </div>
+      </div>
+     </div><!-- Artikel Section -->
+     <div id="articles-section" class="section-content hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+       <h1 class="font-heading text-3xl font-bold" style="color: #0f766e;">Manajemen Artikel</h1><button id="add-article-btn" class="btn-primary">+ Tambah Artikel</button>
+      </div>
+      <div id="articles-list" class="bg-white rounded-lg shadow overflow-hidden">
+       <table class="w-full table-striped">
+        <thead style="background-color: #f3f4f6; border-bottom: 1px solid #e5e7eb;">
+         <tr>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Judul</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Penulis</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Tanggal</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Aksi</th>
+         </tr>
+        </thead>
+        <tbody id="articles-table-body"></tbody>
+       </table>
+       <div id="articles-empty" style="padding: 2rem; text-align: center; color: #64748b;">
+        Belum ada artikel
+       </div>
+      </div>
+     </div><!-- Jurnal Section -->
+     <div id="journal-section" class="section-content hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+       <h1 class="font-heading text-3xl font-bold" style="color: #0f766e;">Manajemen Jurnal &amp; Karya Tulis</h1><button id="add-journal-btn" class="btn-primary">+ Tambah Jurnal</button>
+      </div>
+      <div id="journal-list" class="bg-white rounded-lg shadow overflow-hidden">
+       <table class="w-full table-striped">
+        <thead style="background-color: #f3f4f6; border-bottom: 1px solid #e5e7eb;">
+         <tr>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Judul</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Penulis</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Kategori</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Aksi</th>
+         </tr>
+        </thead>
+        <tbody id="journal-table-body"></tbody>
+       </table>
+       <div id="journal-empty" style="padding: 2rem; text-align: center; color: #64748b;">
+        Belum ada jurnal
+       </div>
+      </div>
+     </div><!-- Pendidik Section -->
+     <div id="staff-section" class="section-content hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+       <h1 class="font-heading text-3xl font-bold" style="color: #0f766e;">Manajemen Pendidik &amp; Tenaga Kependidikan</h1><button id="add-staff-btn" class="btn-primary">+ Tambah Pendidik</button>
+      </div>
+      <div id="staff-list" class="bg-white rounded-lg shadow overflow-hidden">
+       <table class="w-full table-striped">
+        <thead style="background-color: #f3f4f6; border-bottom: 1px solid #e5e7eb;">
+         <tr>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Nama</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Jabatan</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">NIP</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Status</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Aksi</th>
+         </tr>
+        </thead>
+        <tbody id="staff-table-body"></tbody>
+       </table>
+       <div id="staff-empty" style="padding: 2rem; text-align: center; color: #64748b;">
+        Belum ada pendidik
+       </div>
+      </div>
+     </div><!-- Peserta Didik Section -->
+     <div id="students-section" class="section-content hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+       <h1 class="font-heading text-3xl font-bold" style="color: #0f766e;">Manajemen Data Peserta Didik</h1><button id="add-student-btn" class="btn-primary">+ Tambah Kelas</button>
+      </div>
+      <div id="students-list" class="bg-white rounded-lg shadow overflow-hidden">
+       <table class="w-full table-striped">
+        <thead style="background-color: #f3f4f6; border-bottom: 1px solid #e5e7eb;">
+         <tr>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Nama Kelas</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Laki-laki</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Perempuan</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Total</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Aksi</th>
+         </tr>
+        </thead>
+        <tbody id="students-table-body"></tbody>
+       </table>
+       <div id="students-empty" style="padding: 2rem; text-align: center; color: #64748b;">
+        Belum ada data kelas
+       </div>
+      </div>
+     </div><!-- Jabatan Section -->
+     <div id="positions-section" class="section-content hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+       <h1 class="font-heading text-3xl font-bold" style="color: #0f766e;">Manajemen Jabatan</h1><button id="add-position-btn" class="btn-primary">+ Tambah Jabatan</button>
+      </div>
+      <div id="positions-list" class="bg-white rounded-lg shadow overflow-hidden">
+       <table class="w-full table-striped">
+        <thead style="background-color: #f3f4f6; border-bottom: 1px solid #e5e7eb;">
+         <tr>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Nama</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Jabatan</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Tugas Tambahan</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Aksi</th>
+         </tr>
+        </thead>
+        <tbody id="positions-table-body"></tbody>
+       </table>
+       <div id="positions-empty" style="padding: 2rem; text-align: center; color: #64748b;">
+        Belum ada data jabatan
+       </div>
+      </div>
+     </div><!-- Alumni Section -->
+     <div id="alumni-section" class="section-content hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+       <h1 class="font-heading text-3xl font-bold" style="color: #0f766e;">Manajemen Profil Alumni</h1><button id="add-alumni-btn" class="btn-primary">+ Tambah Alumni</button>
+      </div>
+      <div id="alumni-list" class="bg-white rounded-lg shadow overflow-hidden">
+       <table class="w-full table-striped">
+        <thead style="background-color: #f3f4f6; border-bottom: 1px solid #e5e7eb;">
+         <tr>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Nama</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Angkatan</th>
+          <th style="padding: 1rem; text-align: left; font-weight: 600; color: #1f2937;">Keahlian</th>
+          <th style="padding: 1rem; text-align: center; font-weight: 600; color: #1f2937;">Aksi</th>
+         </tr>
+        </thead>
+        <tbody id="alumni-table-body"></tbody>
+       </table>
+       <div id="alumni-empty" style="padding: 2rem; text-align: center; color: #64748b;">
+        Belum ada profil alumni
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- Modal Form (Umum) -->
+  <div id="form-modal" class="hidden fixed inset-0 modal-backdrop flex items-center justify-center z-50">
+   <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-2xl overflow-y-auto" style="max-height: 90vh;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+     <h2 class="font-heading text-2xl font-bold" id="form-title" style="color: #0f766e;"></h2><button id="close-form-btn" style="font-size: 1.5rem; color: #64748b; cursor: pointer; background: none; border: none;">×</button>
+    </div>
+    <form id="form-content" style="space-y: 1rem;"></form>
+   </div>
+  </div><!-- Toast Notification -->
+  <div id="toast" class="hidden toast fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50"></div>
+  <script>
+    // Global state
+    let isLoggedIn = false;
+    let allData = {
+      articles: [],
+      journals: [],
+      staff: [],
+      students: [],
+      positions: [],
+      alumni: []
+    };
+    let currentEditType = null;
+    let currentEditId = null;
+
+    // Initialize Element SDK for editable config
+    const defaultConfig = {
+      school_name: "SMP Negeri 1 Tabukan Utara",
+      tagline: "Pendidikan Berkualitas untuk Masa Depan",
+      vision: "Menjadi sekolah unggul yang menghasilkan siswa berkompeten, berakhlak mulia, dan siap menghadapi tantangan global.",
+      mission: "Menyelenggarakan pendidikan yang inovatif, inklusif, dan berpusat pada pengembangan karakter siswa."
+    };
+    let config = { ...defaultConfig };
+
+    // Initialize Data SDK
+    const dataHandler = {
+      onDataChanged(data) {
+        // Organize data by type
+        allData = {
+          articles: data.filter(d => d.type === 'article'),
+          journals: data.filter(d => d.type === 'journal'),
+          staff: data.filter(d => d.type === 'staff'),
+          students: data.filter(d => d.type === 'student'),
+          positions: data.filter(d => d.type === 'position'),
+          alumni: data.filter(d => d.type === 'alumni')
+        };
+        
+        updatePublicWebsite();
+        if (isLoggedIn) {
+          updateDashboard();
+          updateTables();
+        }
+      }
+    };
+
+    // Initialize SDK
+    window.dataSdk.init(dataHandler);
+
+    // Element SDK initialization
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: (newConfig) => {
+          config = newConfig;
+          updatePublicWebsite();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ["school_name", cfg.school_name || defaultConfig.school_name],
+          ["tagline", cfg.tagline || defaultConfig.tagline],
+          ["vision", cfg.vision || defaultConfig.vision],
+          ["mission", cfg.mission || defaultConfig.mission]
+        ])
+      });
+    }
+
+    // Update public website display
+    function updatePublicWebsite() {
+      // Update header
+      document.getElementById('header-school-name').textContent = config.school_name || defaultConfig.school_name;
+      document.getElementById('header-tagline').textContent = config.tagline || defaultConfig.tagline;
+      
+      // Update visi & misi
+      document.getElementById('vision-text').textContent = config.vision || defaultConfig.vision;
+      document.getElementById('mission-text').textContent = config.mission || defaultConfig.mission;
+      
+      // Update statistics
+      const totalStudents = allData.students.reduce((sum, s) => sum + (parseInt(s.male_students) || 0) + (parseInt(s.female_students) || 0), 0);
+      document.getElementById('stats-students').textContent = totalStudents;
+      document.getElementById('stats-staff').textContent = allData.staff.length;
+      document.getElementById('stats-articles').textContent = allData.articles.length;
+      document.getElementById('stats-journals').textContent = allData.journals.length;
+      
+      // Update articles
+      updateArticlesPublic();
+      
+      // Update journals
+      updateJournalsPublic();
+      
+      // Update staff
+      updateStaffPublic();
+      
+      // Update management
+      updateManagementList();
+    }
+
+    function updateArticlesPublic() {
+      const container = document.getElementById('articles-list-public');
+      const emptyMsg = document.getElementById('articles-empty-msg');
+      container.innerHTML = '';
+      
+      if (allData.articles.length === 0) {
+        emptyMsg.style.display = 'block';
+      } else {
+        emptyMsg.style.display = 'none';
+        allData.articles.forEach(article => {
+          const card = document.createElement('div');
+          card.style.cssText = 'background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s; cursor: pointer;';
+          card.onmouseenter = () => card.style.transform = 'translateY(-8px)';
+          card.onmouseleave = () => card.style.transform = 'translateY(0)';
+          
+          const date = new Date(article.date).toLocaleDateString('id-ID');
+          card.innerHTML = `
+            <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white; padding: 1.5rem; min-height: 120px;">
+              <h3 style="font-weight: bold; font-size: 1.125rem; margin-bottom: 0.5rem; line-height: 1.4;">${article.title}</h3>
+              <p style="font-size: 0.875rem; opacity: 0.8;">Oleh ${article.author}</p>
+            </div>
+            <div style="padding: 1.5rem;">
+              <p style="color: #64748b; line-height: 1.6; margin-bottom: 1rem;">${article.content.substring(0, 100)}${article.content.length > 100 ? '...' : ''}</p>
+              <p style="font-size: 0.875rem; color: #94a3b8;">${date}</p>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+    }
+
+    function updateJournalsPublic() {
+      const container = document.getElementById('journals-list-public');
+      const emptyMsg = document.getElementById('journals-empty-msg');
+      container.innerHTML = '';
+      
+      if (allData.journals.length === 0) {
+        emptyMsg.style.display = 'block';
+      } else {
+        emptyMsg.style.display = 'none';
+        allData.journals.forEach(journal => {
+          const item = document.createElement('div');
+          item.style.cssText = 'background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #0f766e;';
+          item.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+              <h3 style="font-weight: bold; font-size: 1.125rem; color: #1f2937; margin: 0; flex: 1;">${journal.title}</h3>
+              <span style="background-color: #d1fae5; color: #065f46; padding: 0.25rem 0.75rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">${journal.category}</span>
+            </div>
+            <p style="color: #64748b; font-size: 0.875rem; margin-bottom: 0.5rem;">Oleh ${journal.author}</p>
+            <p style="color: #64748b; line-height: 1.6;">${journal.content.substring(0, 150)}${journal.content.length > 150 ? '...' : ''}</p>
+          `;
+          container.appendChild(item);
+        });
+      }
+    }
+
+    function updateStaffPublic() {
+      const container = document.getElementById('staff-list-public');
+      const emptyMsg = document.getElementById('staff-empty-msg');
+      container.innerHTML = '';
+      
+      if (allData.staff.length === 0) {
+        emptyMsg.style.display = 'block';
+      } else {
+        emptyMsg.style.display = 'none';
+        allData.staff.forEach(staff => {
+          const card = document.createElement('div');
+          card.style.cssText = 'background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center;';
+          card.innerHTML = `
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">👤</div>
+            <h3 style="font-weight: bold; font-size: 1rem; color: #1f2937; margin-bottom: 0.25rem;">${staff.name}</h3>
+            <p style="color: #0f766e; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">${staff.position}</p>
+            <p style="color: #64748b; font-size: 0.8rem; line-height: 1.4;">
+              <span style="display: block; margin-top: 0.5rem;">📛 ${staff.nip}</span>
+              <span style="display: block;">Status: ${staff.status}</span>
+            </p>
+          `;
+          container.appendChild(card);
+        });
+      }
+    }
+
+    function updateManagementList() {
+      const container = document.getElementById('management-list');
+      container.innerHTML = '';
+      
+      const managementPositions = ['Kepala Sekolah', 'Wakil Kepala Sekolah'];
+      const managementStaff = allData.positions.filter(p => managementPositions.includes(p.position));
+      
+      if (managementStaff.length === 0) {
+        container.innerHTML = '<p style="color: #64748b;">Tim manajemen tidak tersedia</p>';
+      } else {
+        managementStaff.forEach(staff => {
+          const item = document.createElement('div');
+          item.style.cssText = 'background: #f8fafc; padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; gap: 1rem; border-left: 4px solid #1e3a5f;';
+          item.innerHTML = `
+            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.25rem; flex-shrink: 0;">👤</div>
+            <div>
+              <h4 style="font-weight: bold; color: #1f2937; margin: 0;">${staff.name}</h4>
+              <p style="color: #0f766e; margin: 0; font-size: 0.875rem; font-weight: 600;">${staff.position}</p>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      }
+    }
+
+    // Navigation setup
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function() {
+        const section = this.dataset.section;
+        switchSection(section);
+        
+        document.querySelectorAll('.nav-link').forEach(l => l.style.borderBottomColor = 'transparent');
+        this.style.borderBottomColor = '#1e3a5f';
+        
+        document.querySelectorAll('.nav-link').forEach(l => l.style.color = '#64748b');
+        this.style.color = '#1e3a5f';
+      });
+    });
+
+    function switchSection(section) {
+      document.querySelectorAll('.page-section').forEach(el => {
+        el.classList.add('hidden');
+      });
+      document.getElementById(section + '-section').classList.remove('hidden');
+    }
+
+    // Admin toggle
+    document.getElementById('admin-toggle-btn').addEventListener('click', function() {
+      document.getElementById('login-modal').classList.remove('hidden');
+    });
+
+    // Login handling
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      if (username === 'admin' && password === 'admin123') {
+        isLoggedIn = true;
+        document.getElementById('login-modal').classList.add('hidden');
+        document.getElementById('public-website').style.display = 'none';
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+        updateDashboard();
+        showToast('Berhasil login ke portal admin');
+      } else {
+        showToast('Username atau password salah');
+      }
+    });
+
+    // Logout handling
+    document.getElementById('logout-btn').addEventListener('click', function() {
+      isLoggedIn = false;
+      document.getElementById('admin-dashboard').classList.add('hidden');
+      document.getElementById('public-website').style.display = 'flex';
+      document.getElementById('login-modal').classList.add('hidden');
+      document.getElementById('login-form').reset();
+    });
+
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const section = this.dataset.section;
+        switchSection(section);
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    function switchSection(section) {
+      document.querySelectorAll('.section-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+      document.getElementById(section + '-section').classList.remove('hidden');
+    }
+
+    function updateDashboard() {
+      document.getElementById('total-articles').textContent = allData.articles.length;
+      document.getElementById('total-journals').textContent = allData.journals.length;
+      document.getElementById('total-staff').textContent = allData.staff.length;
+      document.getElementById('total-students').textContent = allData.students.length;
+    }
+
+    function updateTables() {
+      updateArticlesTable();
+      updateJournalsTable();
+      updateStaffTable();
+      updateStudentsTable();
+      updatePositionsTable();
+      updateAlumniTable();
+    }
+
+    function updateArticlesTable() {
+      const tbody = document.getElementById('articles-table-body');
+      const empty = document.getElementById('articles-empty');
+      tbody.innerHTML = '';
+      
+      if (allData.articles.length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        allData.articles.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td style="padding: 1rem;">${item.title}</td>
+            <td style="padding: 1rem;">${item.author}</td>
+            <td style="padding: 1rem;">${new Date(item.date).toLocaleDateString('id-ID')}</td>
+            <td style="padding: 1rem; text-align: center;">
+              <button onclick="editItem('article', '${item.__backendId}')" class="btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.875rem; margin-right: 0.5rem;">Edit</button>
+              <button onclick="deleteItem('article', '${item.__backendId}')" class="btn-danger" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Hapus</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+    }
+
+    function updateJournalsTable() {
+      const tbody = document.getElementById('journal-table-body');
+      const empty = document.getElementById('journal-empty');
+      tbody.innerHTML = '';
+      
+      if (allData.journals.length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        allData.journals.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td style="padding: 1rem;">${item.title}</td>
+            <td style="padding: 1rem;">${item.author}</td>
+            <td style="padding: 1rem;">${item.category}</td>
+            <td style="padding: 1rem; text-align: center;">
+              <button onclick="editItem('journal', '${item.__backendId}')" class="btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.875rem; margin-right: 0.5rem;">Edit</button>
+              <button onclick="deleteItem('journal', '${item.__backendId}')" class="btn-danger" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Hapus</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+    }
+
+    function updateStaffTable() {
+      const tbody = document.getElementById('staff-table-body');
+      const empty = document.getElementById('staff-empty');
+      tbody.innerHTML = '';
+      
+      if (allData.staff.length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        allData.staff.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td style="padding: 1rem;">${item.name}</td>
+            <td style="padding: 1rem;">${item.position}</td>
+            <td style="padding: 1rem;">${item.nip}</td>
+            <td style="padding: 1rem;">${item.status}</td>
+            <td style="padding: 1rem; text-align: center;">
+              <button onclick="editItem('staff', '${item.__backendId}')" class="btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.875rem; margin-right: 0.5rem;">Edit</button>
+              <button onclick="deleteItem('staff', '${item.__backendId}')" class="btn-danger" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Hapus</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+    }
+
+    function updateStudentsTable() {
+      const tbody = document.getElementById('students-table-body');
+      const empty = document.getElementById('students-empty');
+      tbody.innerHTML = '';
+      
+      if (allData.students.length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        allData.students.forEach(item => {
+          const row = document.createElement('tr');
+          const total = (parseInt(item.male_students) || 0) + (parseInt(item.female_students) || 0);
+          row.innerHTML = `
+            <td style="padding: 1rem;">${item.class_name}</td>
+            <td style="padding: 1rem; text-align: center;">${item.male_students}</td>
+            <td style="padding: 1rem; text-align: center;">${item.female_students}</td>
+            <td style="padding: 1rem; text-align: center; font-weight: bold;">${total}</td>
+            <td style="padding: 1rem; text-align: center;">
+              <button onclick="editItem('student', '${item.__backendId}')" class="btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.875rem; margin-right: 0.5rem;">Edit</button>
+              <button onclick="deleteItem('student', '${item.__backendId}')" class="btn-danger" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Hapus</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+    }
+
+    function updatePositionsTable() {
+      const tbody = document.getElementById('positions-table-body');
+      const empty = document.getElementById('positions-empty');
+      tbody.innerHTML = '';
+      
+      if (allData.positions.length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        allData.positions.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td style="padding: 1rem;">${item.name}</td>
+            <td style="padding: 1rem;">${item.position}</td>
+            <td style="padding: 1rem;">${item.additional_duties}</td>
+            <td style="padding: 1rem; text-align: center;">
+              <button onclick="editItem('position', '${item.__backendId}')" class="btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.875rem; margin-right: 0.5rem;">Edit</button>
+              <button onclick="deleteItem('position', '${item.__backendId}')" class="btn-danger" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Hapus</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+    }
+
+    function updateAlumniTable() {
+      const tbody = document.getElementById('alumni-table-body');
+      const empty = document.getElementById('alumni-empty');
+      tbody.innerHTML = '';
+      
+      if (allData.alumni.length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        allData.alumni.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td style="padding: 1rem;">${item.name}</td>
+            <td style="padding: 1rem;">${item.grade}</td>
+            <td style="padding: 1rem;">${item.education}</td>
+            <td style="padding: 1rem; text-align: center;">
+              <button onclick="editItem('alumni', '${item.__backendId}')" class="btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.875rem; margin-right: 0.5rem;">Edit</button>
+              <button onclick="deleteItem('alumni', '${item.__backendId}')" class="btn-danger" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Hapus</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+    }
+
+    // Add button handlers
+    document.getElementById('add-article-btn').addEventListener('click', () => openFormModal('article'));
+    document.getElementById('add-journal-btn').addEventListener('click', () => openFormModal('journal'));
+    document.getElementById('add-staff-btn').addEventListener('click', () => openFormModal('staff'));
+    document.getElementById('add-student-btn').addEventListener('click', () => openFormModal('student'));
+    document.getElementById('add-position-btn').addEventListener('click', () => openFormModal('position'));
+    document.getElementById('add-alumni-btn').addEventListener('click', () => openFormModal('alumni'));
+
+    function openFormModal(type, itemId = null) {
+      currentEditType = type;
+      currentEditId = itemId;
+      
+      const modal = document.getElementById('form-modal');
+      const formContent = document.getElementById('form-content');
+      const title = document.getElementById('form-title');
+      
+      let labels = {};
+      let fields = [];
+      
+      if (type === 'article') {
+        title.textContent = itemId ? 'Edit Artikel' : 'Tambah Artikel';
+        fields = ['title', 'author', 'content', 'image_url', 'date'];
+        labels = { title: 'Judul', author: 'Penulis', content: 'Isi Artikel', image_url: 'URL Gambar', date: 'Tanggal' };
+      } else if (type === 'journal') {
+        title.textContent = itemId ? 'Edit Jurnal' : 'Tambah Jurnal';
+        fields = ['title', 'author', 'category', 'content', 'image_url'];
+        labels = { title: 'Judul', author: 'Penulis', category: 'Kategori', content: 'Isi Jurnal', image_url: 'URL Gambar' };
+      } else if (type === 'staff') {
+        title.textContent = itemId ? 'Edit Pendidik' : 'Tambah Pendidik';
+        fields = ['name', 'position', 'nip', 'status', 'education', 'department'];
+        labels = { name: 'Nama', position: 'Jabatan', nip: 'NIP', status: 'Status', education: 'Pendidikan', department: 'Departemen' };
+      } else if (type === 'student') {
+        title.textContent = itemId ? 'Edit Data Kelas' : 'Tambah Data Kelas';
+        fields = ['class_name', 'male_students', 'female_students', 'grade'];
+        labels = { class_name: 'Nama Kelas', male_students: 'Jumlah Laki-laki', female_students: 'Jumlah Perempuan', grade: 'Tingkat' };
+      } else if (type === 'position') {
+        title.textContent = itemId ? 'Edit Jabatan' : 'Tambah Jabatan';
+        fields = ['name', 'position', 'additional_duties'];
+        labels = { name: 'Nama Pegawai', position: 'Jabatan', additional_duties: 'Tugas Tambahan' };
+      } else if (type === 'alumni') {
+        title.textContent = itemId ? 'Edit Alumni' : 'Tambah Alumni';
+        fields = ['name', 'grade', 'education', 'content'];
+        labels = { name: 'Nama Alumni', grade: 'Tahun Lulus', education: 'Pendidikan Sekarang', content: 'Profesi/Keahlian' };
+      }
+      
+      formContent.innerHTML = '';
+      const formData = {};
+      
+      fields.forEach(field => {
+        const div = document.createElement('div');
+        div.style.marginBottom = '1rem';
+        
+        const label = document.createElement('label');
+        label.textContent = labels[field] || field;
+        label.style.display = 'block';
+        label.style.fontSize = '0.875rem';
+        label.style.fontWeight = '500';
+        label.style.marginBottom = '0.5rem';
+        label.style.color = '#1f2937';
+        
+        let input;
+        if (field === 'content') {
+          input = document.createElement('textarea');
+          input.rows = 4;
+        } else if (field === 'date') {
+          input = document.createElement('input');
+          input.type = 'date';
+        } else if (field === 'male_students' || field === 'female_students') {
+          input = document.createElement('input');
+          input.type = 'number';
+        } else {
+          input = document.createElement('input');
+          input.type = 'text';
+        }
+        
+        input.className = 'input-field';
+        input.style.width = '100%';
+        input.style.boxSizing = 'border-box';
+        input.placeholder = labels[field] || field;
+        
+        div.appendChild(label);
+        div.appendChild(input);
+        formContent.appendChild(div);
+        
+        formData[field] = input;
+      });
+      
+      // If editing, load data
+      if (itemId) {
+        const item = [...allData.articles, ...allData.journals, ...allData.staff, ...allData.students, ...allData.positions, ...allData.alumni]
+          .find(d => d.__backendId === itemId);
+        if (item) {
+          fields.forEach(field => {
+            if (formData[field]) formData[field].value = item[field] || '';
+          });
+        }
+      }
+      
+      // Submit button
+      const submitBtn = document.createElement('button');
+      submitBtn.type = 'button';
+      submitBtn.textContent = itemId ? 'Perbarui' : 'Simpan';
+      submitBtn.className = 'btn-primary';
+      submitBtn.style.width = '100%';
+      submitBtn.style.marginTop = '1.5rem';
+      submitBtn.addEventListener('click', () => saveItem(type, formData, itemId));
+      formContent.appendChild(submitBtn);
+      
+      modal.classList.remove('hidden');
+    }
+
+    async function saveItem(type, formData, itemId) {
+      const dataToSave = { type };
+      Object.keys(formData).forEach(key => {
+        dataToSave[key] = formData[key].value;
+      });
+      
+      if (itemId) {
+        // Update
+        const item = [...allData.articles, ...allData.journals, ...allData.staff, ...allData.students, ...allData.positions, ...allData.alumni]
+          .find(d => d.__backendId === itemId);
+        if (item) {
+          Object.keys(dataToSave).forEach(key => {
+            item[key] = dataToSave[key];
+          });
+          await window.dataSdk.update(item);
+        }
+      } else {
+        // Create
+        await window.dataSdk.create(dataToSave);
+      }
+      
+      document.getElementById('form-modal').classList.add('hidden');
+      showToast(itemId ? 'Data berhasil diperbarui' : 'Data berhasil ditambahkan');
+    }
+
+    async function deleteItem(type, itemId) {
+      const item = [...allData.articles, ...allData.journals, ...allData.staff, ...allData.students, ...allData.positions, ...allData.alumni]
+        .find(d => d.__backendId === itemId);
+      if (item && confirm('Yakin ingin menghapus data ini?')) {
+        await window.dataSdk.delete(item);
+        showToast('Data berhasil dihapus');
+      }
+    }
+
+    function editItem(type, itemId) {
+      openFormModal(type, itemId);
+    }
+
+    document.getElementById('close-form-btn').addEventListener('click', () => {
+      document.getElementById('form-modal').classList.add('hidden');
+    });
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1b63cd4220d846',t:'MTc3MTczMDg2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
