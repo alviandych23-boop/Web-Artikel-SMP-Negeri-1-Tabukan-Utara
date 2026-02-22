@@ -1,0 +1,41 @@
+{
+  "persistence_enabled": true,
+  "app_name": "Jurnal SMP Negeri 1 Tabukan Utara",
+  "avoids_browser_dialogs": true,
+  "avoids_viewport_units": true,
+  "verified_data_sdk_usage": true,
+  "verified_editable_features_usage": true,
+  "data_paradigm": "B",
+  "schema": {
+    "id": "string",
+    "type": "string",
+    "title": "string",
+    "content": "string",
+    "author": "string",
+    "category": "string",
+    "date": "string",
+    "image_url": "string"
+  },
+  "edit_panel": {
+    "header_label": {
+      "type": "label",
+      "text": "Pengaturan Website",
+      "size": "large"
+    },
+    "school_name": {
+      "type": "text_input",
+      "label": "Nama Sekolah",
+      "placeholder": "Masukkan nama sekolah"
+    },
+    "hero_title": {
+      "type": "text_input",
+      "label": "Judul Utama",
+      "placeholder": "Judul hero section"
+    },
+    "hero_subtitle": {
+      "type": "text_input",
+      "label": "Subjudul",
+      "placeholder": "Deskripsi singkat"
+    }
+  }
+}
